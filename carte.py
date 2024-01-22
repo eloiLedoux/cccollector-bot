@@ -15,7 +15,7 @@ class Carte:
     def miseEnForme(self):
         return (f"{self.nom} \n"
         f"{self.couleur} {self.categorie} / ({self.id}) {self.rarete} \n"
-        f"Cost : {self.cout} / Power : {self.puissance} ({self.attributs}) \n"
+        f"Cost/Life : {self.cout} / Power : {self.puissance} ({self.attributs}) \n"
         f"{self.types} \n"
         f"Counter : [{self.contre}] \n"
         f"{self.effet}")
@@ -23,7 +23,7 @@ class Carte:
     def miseEnFormeFR(self):
         return (f"{self.nom} \n"
         f"{self.categorie} {self.couleur} / ({self.id}) {self.rarete} \n"
-        f"Coût : {self.cout} / Puissance : {self.puissance} ({self.attributs}) \n"
+        f"Coût/Vie : {self.cout} / Puissance : {self.puissance} ({self.attributs}) \n"
         f"{self.types} \n"
         f"Contre : [{self.contre}] \n"
         f"{self.effet}")
