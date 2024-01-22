@@ -1,5 +1,6 @@
 import discord
 import json
+from discord.ext import commands
 
 # Opens the file in read-only mode and assigns the contents to the variable cfg to be accessed further down
 with open('config.json', 'r') as cfg:
@@ -8,10 +9,18 @@ with open('config.json', 'r') as cfg:
 
 TOKEN = data["token"]
 
-client = discord.Client()
+description = '''Bot de description des cartes.
 
-@client.event
-async def on_ready():
-    print(f'{client.user} has connected to Discord!')
+Traductions disponibles.
+'''
 
-client.run(TOKEN)
+intents = discord.Intents.default()
+intents.members = True
+intents.message_content = True
+bot = commands.Bot(command_prefix='!',description=description, intents=intents)
+
+@bot.command()
+async def print(ctx, print):
+    await ctx.send(print)
+
+bot.run(TOKEN)

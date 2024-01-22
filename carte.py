@@ -27,6 +27,7 @@ class Carte:
         f"{self.types} \n"
         f"Contre : [{self.contre}] \n"
         f"{self.effet}")
-    
-c1 = Carte("Oden", "Red", "Character", "OP18-001", "SEC", "10", "9000", "Slash", "Land of Wano", "0", "[Activate : Main] : win the game")
-print(c1.miseEnForme())
+
+if __name__ == "__main__":
+    c1 = Carte("Oden", "Red", "Character", "OP18-001", "SEC", "10", "9000", "Slash", "Land of Wano", "0", "[Activate : Main] : win the game")
+    print(c1.miseEnForme())
