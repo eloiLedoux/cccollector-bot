@@ -35,10 +35,10 @@ def construire_dico_infos_fr(elagage):
 
 def construire_carte(id_carte, fr=False):
     data = recup_info.requete_BDD(id_carte)
-    elagage = data[0]
     if data == []:
-        print("Cette ID n'est associé à aucune carte.")
+        #ID associé à aucune carte
         return -1
+    elagage = data[0]
     if fr:
         dico = construire_dico_infos_fr(elagage)
     else:
@@ -59,5 +59,8 @@ def construire_carte(id_carte, fr=False):
     )
 
 if __name__ == "__main__":
-    carte = construire_carte('OP01-001', True)
-    print(carte.miseEnFormeFR())
+    carte = construire_carte('OP01-001')
+    if carte == -1:
+        print("Cette ID n'est associé à aucune carte.")
+    else:
+        print(carte.miseEnFormeFR())

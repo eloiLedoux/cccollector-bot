@@ -11,8 +11,9 @@ def requete_BDD(id_carte):
     #Creation du curseur pour requeter:
     cursor = conn.cursor()
 
+    qry = "OP" + id_carte[2:]
     #Requete SQL:
-    request = (f'SELECT * FROM public."Carte" WHERE code_carte = \'{id_carte}\'')
+    request = (f'SELECT * FROM public."Carte" WHERE code_carte = \'{qry}\'')
     cursor.execute(request)
 
     #Requetage (fetchall/fetchone/fetchmany(n))
