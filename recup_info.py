@@ -1,30 +1,27 @@
-import psycopg2
+import requests
 import json
 
-def requete_BDD(id_carte):
-    with open('bdd-config.json', 'r') as cfg:
-        configs = json.load(cfg) 
-    #Etablir la connection:
-    conn = psycopg2.connect(
-    database=configs["database"], user=configs["user"], password=configs["password"], host=configs["host"], port=configs["port"]
-    )
-    #Creation du curseur pour requeter:
-    cursor = conn.cursor()
+def requete_API(id_carte):
+    with open('api-config.json', 'r') as cfg:
+        configs = json.load(cfg)
+    protocol = "http://"
+    database = "cartes"
+    element = "code_carte"
+    operator = "eq."
+    URI = protocol + configs["address"] + ":" + configs["port"] + "/" + database + "?" + element + "=" + operator + id_carte
+    
+    reponse_API = requests.get(URI)
+    data = reponse_API.text
+    dico = json.loads(data)
 
-    qry = "OP" + id_carte[2:]
-    #Requete SQL:
-    request = (f'SELECT * FROM public."Carte" WHERE code_carte = \'{qry}\'')
-    cursor.execute(request)
-
-    #Requetage (fetchall/fetchone/fetchmany(n))
-    data = cursor.fetchall()
-    #print("Données récupérées :",data)
-
-    #Closing the connection
-    conn.close()
-
-    return data
+    if dico == []:
+        #ID associé à aucune carte
+        return -1
+    return dico[0]
 
 if __name__ == "__main__":
-    data = requete_BDD('OP01-001')
-    print(data)
+    data = requete_API('OP01-001')
+    if data == -1:
+        print("Cette ID n'est associé à aucune carte.")
+    else:
+        print(data)
