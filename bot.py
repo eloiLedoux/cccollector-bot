@@ -1,6 +1,5 @@
 import discord
 import json
-from discord.ext import commands
 
 import construire_info
 
@@ -11,33 +10,25 @@ with open('config.json', 'r') as cfg:
 
 TOKEN = data["token"]
 
-description = '''Bot de description des cartes.
-
-Traductions disponibles.
-'''
-
-intents = discord.Intents.default()
-intents.members = True
-intents.message_content = True
-bot = commands.Bot(command_prefix='!',description=description, intents=intents)
+bot = discord.Bot()
 
 id_inconnu = "``` Cet ID n'est associé à aucune carte. ```"
 
-@bot.command()
+@bot.command(description="Répète un peu pour voir.")
 async def print(ctx, print):
-    await ctx.send(print)
+    await ctx.respond(print)
 
-@bot.command()
+@bot.command(description="Description d'une carte à partir de son code.")
 async def description(ctx, id_carte):
     carte = construire_info.construire_carte(id_carte)
-    await ctx.send(
+    await ctx.respond(
        id_inconnu if carte == -1 else ("```" + carte.miseEnFormeFR() + "```")
       )
 
-@bot.command()
+@bot.command(description="Traduction d'une carte à partir de son code.")
 async def traduction(ctx, id_carte):
     carte = construire_info.construire_carte(id_carte, True)
-    await ctx.send(
+    await ctx.respond(
       id_inconnu if carte == -1 else ("```" + carte.miseEnFormeFR() + "```")
       )
 
